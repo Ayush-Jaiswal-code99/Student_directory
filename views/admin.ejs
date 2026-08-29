@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Create Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0c10; /* Cyber-dark background */
+            color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-container {
+            background: #11131c; /* Matching dark slate container */
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            border: 1px solid #1e2230;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 35px 25px;
+        }
+
+        .panel-heading {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d946ef; /* Neon Pink Heading */
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .panel-subheading {
+            font-size: 0.85rem;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #3b82f6; /* Tech Blue labels */
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #161925; /* Dark inner input background */
+            border: 1px solid #222638;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #d946ef;
+            box-shadow: 0 0 10px rgba(217, 70, 239, 0.2);
+        }
+
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #10b981; /* Accent green for successful operations */
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .submit-btn:hover {
+            background: #059669;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .back-link {
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            padding: 10px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h5 class="panel-heading">Database Center</h5>
+        <p class="panel-subheading">Insert New Student Record</p>
+
+        <!-- Form targets the Express POST route -->
+        <form action="/admin/create" method="POST">
+            
+            <!-- Student Name Input -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="e.g. Ayush Jaiswal" required>
+            </div>
+
+            <!-- Course Input -->
+            <div class="form-group">
+                <label for="course">Enrolled Course</label>
+                <input type="text" id="course" name="course" class="form-control" placeholder="e.g. CSE" required>
+            </div>
+
+            <!-- Description/Bio Input -->
+            <div class="form-group">
+                <label for="descr">Profile Description</label>
+                <textarea id="descr" name="descr" class="form-control" placeholder="Write a short summary or bio for this student profile..."></textarea>
+            </div>
+
+            <!-- Actions Panel -->
+            <div class="btn-container">
+                <button type="submit" class="submit-btn">+ Commit to Matrix</button>
+                <a href="/student" class="back-link">Cancel & Return</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

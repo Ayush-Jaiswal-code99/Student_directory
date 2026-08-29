@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Details</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    .back-btn {
+        display: inline-block;
+        text-decoration: none;
+        color: #ffffff;
+        background: #1f2235;
+        border: 1px solid #313752;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        margin-top: 20px;
+    }
+
+    .back-btn:hover {
+        background: #d946ef;
+        border-color: #d946ef;
+        box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 min-h-screen flex flex-col items-center justify-center p-6 font-sans text-zinc-100">
+    
+    <!-- Header Section -->
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            All Students Directory
+        </h1>
+        <p class="text-zinc-400 mt-2 text-sm">Managing current enrollment profiles</p>
+        <!-- Navigation Button -->
+       <a href="/" class="back-btn">← Return to Home Page</a>
+    </div>
+
+    <!-- Container for Separate Student Cards -->
+    <!-- It automatically switches from 1 column on mobile to 2 or 3 columns on larger screens -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+        
+        <% filedata.forEach(function(student){ %>
+            <!-- Individual Student Card -->
+            <!-- <div class="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-indigo-500/50 hover:shadow-indigo-500/30"> -->
+            <a class="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-indigo-500/50 hover:shadow-indigo-500/30" href="/student/<%=student.id%>">
+                
+                <!-- Card Header (ID & Status Badge) -->
+                <div class="flex items-center justify-between mb-4 cursor-pointer border-b border-zinc-800 pb-3">
+                    <span class="text-xs font-mono font-bold tracking-wider text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md">
+                        ID: <%= student.id %>
+                    </span>
+                    <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+
+                <!-- Student Details Layout -->
+                <div class="space-y-3 cursor-pointer">
+                    <div>
+                        <label class="text-[11px] font-uppercase tracking-widest text-zinc-500 block uppercase font-semibold">Full Name</label>
+                        <span class="text-lg font-bold text-zinc-100"><%= student.name %></span>
+                    </div>
+                    <!-- Form for the Delete Action -->
+                    <form action="/student/<%= student.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to remove this record?');" style="margin-top: 15px;">
+                        <button type="submit" style="width: 100%; background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: background 0.2s;">
+                            🗑️ Delete Record
+                        </button>
+                    </form>
+                    <div>
+                        <label class="text-[11px] font-uppercase tracking-widest text-zinc-500 block uppercase font-semibold">Enrolled Course</label>
+                        <div class="inline-flex items-center gap-1.5 mt-1 text-sm font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <%= student.course %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtle Decorative Background Glow -->
+                <div class="absolute -right-10 -bottom-10 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl pointer-events-none"></div>
+            </a> 
+        <% }); %>
+        
+    </div>
+   
+
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= student.name %> - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0c10; /* Pure deep dark theme */
+            color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background: #11131c; /* Matching dark slate cards from directory */
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            border: 1px solid #1e2230;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            text-align: center;
+            padding: 35px 25px;
+        }
+
+        .top-heading {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d946ef; /* Neon Pink heading matches 'All Students Directory' */
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.2);
+        }
+
+        .img-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3b82f6; /* Tech blue avatar border */
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Active status dot similar to your directory cards */
+        .status-dot {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 14px;
+            height: 14px;
+            background-color: #10b981;
+            border-radius: 50%;
+            border: 2px solid #11131c;
+        }
+
+        .student-name {
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.1); /* Translucent green badge background */
+            color: #10b981; /* High contrast green text */
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            margin-bottom: 25px;
+        }
+
+        /* Subtle grid square icon decoration inside badge */
+        .badge::before {
+            content: "⊞";
+            margin-right: 6px;
+            font-size: 0.95rem;
+        }
+
+        .details-box {
+            background: #161925; /* Inner layout panel matching the overall deck */
+            border-radius: 12px;
+            padding: 22px;
+            text-align: left;
+            margin-bottom: 30px;
+            border: 1px solid #222638;
+        }
+
+        .detail-item {
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #9ca3af; /* Muted gray text color */
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-item strong {
+            color: #4f46e5; /* Electric blue/indigo labels matching original ID style */
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            color: #e5e7eb;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            background: #1f2235;
+            border: 1px solid #313752;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #d946ef;
+            border-color: #d946ef;
+            box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Top Title -->
+        <h5 class="top-heading">Student Profile</h5>
+
+        <!-- Photo Wrapper -->
+        <div class="img-container">
+            <img class="profile-img" src="/images/<%= student.id %>.jpg" onerror="this.src='https://unsplash.com'" alt="<%= student.name %>">
+            <div class="status-dot"></div>
+        </div>
+
+        <!-- Student Name -->
+        <h1 class="student-name"><%= student.name %></h1>
+        
+        <!-- Course Badge -->
+        <span class="badge"><%= student.course %></span>
+
+        <!-- Data Details -->
+        <div class="details-box">
+            <div class="detail-item">
+                <strong>ID Parameter</strong>
+                <span class="detail-value">#<%= student.id %></span>
+            </div>
+            <div class="detail-item">
+                <strong>Enrolled Course</strong>
+                <span class="detail-value"><%= student.course %></span>
+            </div>
+            <div class="detail-item">
+                <strong>Profile Description</strong>
+                <span class="detail-value"><%= student.descr || "No description provided yet for this profile index." %></span>
+            </div>
+        </div>
+
+        <!-- Navigation Button -->
+        <a href="/student" class="back-btn">← Return to Directory</a>
+    </div>
+
+</body>
+</html>

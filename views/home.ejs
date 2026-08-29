@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0c10; /* Matching dark theme */
+            color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle animated background glowing shapes */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.15;
+        }
+        body::before {
+            top: 10%;
+            left: 15%;
+            background: #d946ef; /* Neon Pink Glow */
+        }
+        body::after {
+            bottom: 10%;
+            right: 15%;
+            background: #3b82f6; /* Tech Blue Glow */
+        }
+
+        .home-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 650px;
+            padding: 40px;
+            background: rgba(17, 19, 28, 0.7); /* Translucent panel */
+            border: 1px solid #1e2230;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            margin-bottom: 25px;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        /* Gradient text to capture attention */
+        .highlight-text {
+            background: linear-gradient(to right, #d946ef, #3b82f6);
+            --webkit-background-clip: text;
+            --webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            background: #d946ef;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(217, 70, 239, 0.3);
+        }
+
+        .cta-btn:hover {
+            background: #c026d3;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(217, 70, 239, 0.5);
+        }
+
+        .cta-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Micro stat dashboard footer inside home screen */
+        .stats-footer {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #1e2230;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #10b981; /* Directory accent green */
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="home-container">
+        <!-- System Tag -->
+        <span class="welcome-badge">v1.0 System Live</span>
+
+        <!-- Main Title -->
+        <h1 class="main-title">
+            Streamlined <br><span class="highlight-text">Student Matrix</span>
+        </h1>
+
+        <!-- Short Description -->
+        <p class="description">
+            A secure cloud directory interface designed for managing, searching, and tracking current batch enrollments with optimized data parsing.
+        </p>
+
+        <!-- Access Button -->
+        <a href="/student" class="cta-btn">Explore Directory →</a>
+        <!-- <a href="/add" class="cta-btn">Add New Student →</a> -->
+        <a href="/admin" class="cta-btn">+ Add New Student →</a>
+
+
+
+
+        <!-- Mini Stats Bar -->
+        <div class="stats-footer">
+            <div class="stat-item">
+                <div class="stat-number">Active</div>
+                <div class="stat-label">Database Status</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Secure</div>
+                <div class="stat-label">Node Portal</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

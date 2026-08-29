@@ -15,14 +15,19 @@ const session = require('express-session');
 
 // 1. Session Middleware Configuration (Put this near your other app.use statements)
 app.use(session({
-    secret: 'cyber_matrix_secret_key', // You can change this to any text
-    resave: false,
-    saveUninitialized: true
+    secret: 'cyber_matrix_ultra_secret_key_99', // एक मजबूत सीक्रेट की
+    resave: false,             // फालतू में सेशन री-सेव न हो (परफॉर्मेंस के लिए अच्छा है)
+    saveUninitialized: false,  // जब तक लॉगिन न हो, खाली सेशन न बने
+    cookie: { 
+        maxAge: 30 * 60 * 1000, // 30 min तक लॉगिन रहेगा (रीफ़्रेश करने पर भी नहीं हटेगा)
+        secure: false,               // लोकलहोस्ट (http) पर काम करने के लिए इसे false रखें
+        httpOnly: true               // सिक्योरिटी के लिए ताकि कुकीज़ सुरक्षित रहें
+    }
 }));
 
 // Hardcoded Admin Credentials for testing
 const ADMIN_EMAIL = "ayush@admin.com";
-const ADMIN_PASSWORD = "password123";
+const ADMIN_PASSWORD = "as798as";
 
 // 2. Auth Middleware: Checks if user is logged in as admin
 function isAdmin(req, res, next) {
@@ -37,6 +42,11 @@ function isAdmin(req, res, next) {
 
 // GET: Render Login Page
 app.get("/login", function(req, res) {
+    // अगर पहले से लॉगिन है, तो दोबारा लॉगिन फॉर्म मत दिखाओ, सीधे एडमिन पैनल पर भेजो
+    if (req.session && req.session.isLoggedIn) {
+        return res.redirect("/admin");
+    }
+
     res.render("login", { errorMessage: null });
 });
 
@@ -46,7 +56,7 @@ app.post("/login", function(req, res) {
 
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         req.session.isLoggedIn = true; // Set session flag
-        res.redirect("/admin"); // Redirect to admin panel
+        res.redirect("/"); // Redirect to home page
     } else {
         res.render("login", { errorMessage: "Invalid Email or Password!" });
     }

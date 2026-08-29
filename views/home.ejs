@@ -108,6 +108,7 @@
             letter-spacing: 0.5px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 15px rgba(217, 70, 239, 0.3);
+            margin-bottom: 20px;
         }
 
         .cta-btn:hover {
@@ -168,7 +169,26 @@
         <!-- Access Button -->
         <a href="/student" class="cta-btn">Explore Directory →</a>
         <!-- <a href="/add" class="cta-btn">Add New Student →</a> -->
-        <a href="/admin" class="cta-btn">+ Add New Student →</a>
+        <!-- <a href="/admin" class="cta-btn">+ Add New Student →</a> -->
+        <!-- यह कोड अपने show.ejs में 'All Students Directory' हेडिंग के आस-पास लगाएं -->
+        <div style="display: flex; gap: 15px; margin-bottom: 25px; justify-content: center;">
+            
+            <% if (isLoggedIn) { %>
+                <!-- अगर एडमिन लॉग इन है, तो उसे Add Student और Logout दोनों बटन्स दिखेंगे -->
+                <a href="/admin" style="display: inline-block; background: #10b981; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+                    + Add New Student
+                </a>
+                <a href="/logout" style="display: inline-block; background: #ef4444; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);">
+                    🔒 Logout Admin
+                </a>
+            <% } else { %>
+                <!-- अगर कोई नॉर्मल यूजर देख रहा है, तो उसे सिर्फ लॉगिन का बटन दिखेगा -->
+                <a href="/login" style="display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+                    🔑 Admin Login
+                </a>
+            <% } %>
+
+        </div>
 
 
 

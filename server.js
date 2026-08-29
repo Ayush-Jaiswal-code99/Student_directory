@@ -11,6 +11,53 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.use(express.static(path.join(__dirname,'public')));
 
+const session = require('express-session');
+
+// 1. Session Middleware Configuration (Put this near your other app.use statements)
+app.use(session({
+    secret: 'cyber_matrix_secret_key', // You can change this to any text
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Hardcoded Admin Credentials for testing
+const ADMIN_EMAIL = "ayush@admin.com";
+const ADMIN_PASSWORD = "password123";
+
+// 2. Auth Middleware: Checks if user is logged in as admin
+function isAdmin(req, res, next) {
+    if (req.session && req.session.isLoggedIn) {
+        return next(); // User is admin, let them proceed
+    } else {
+        res.redirect("/login"); // Not logged in, send them to login page
+    }
+}
+
+// ---------------- AUTH ROUTES ----------------
+
+// GET: Render Login Page
+app.get("/login", function(req, res) {
+    res.render("login", { errorMessage: null });
+});
+
+// POST: Handle Login Submission
+app.post("/login", function(req, res) {
+    const { email, password } = req.body;
+
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        req.session.isLoggedIn = true; // Set session flag
+        res.redirect("/admin"); // Redirect to admin panel
+    } else {
+        res.render("login", { errorMessage: "Invalid Email or Password!" });
+    }
+});
+
+// GET: Logout Route
+app.get("/logout", function(req, res) {
+    req.session.destroy();
+    res.redirect("/");
+});
+
 function readDatabase() {
     const rawData = fs.readFileSync(dbPath, 'utf-8');
     return JSON.parse(rawData);
@@ -21,7 +68,14 @@ function saveToDatabase(data) {
 }
 
 app.get("/",(req,res)=>{
-    res.render("home");
+    // चेक करें कि क्या एडमिन का सेशन एक्टिव है (true या false)
+    const isAdminLoggedIn = !!(req.session && req.session.isLoggedIn);
+
+    // दोनों चीज़ें टेम्पलेट में भेजें
+    res.render("home", { 
+        isLoggedIn: isAdminLoggedIn 
+    });
+
 });
 
 app.get("/student",function(req,res){
@@ -47,7 +101,7 @@ app.get("/admin", function(req, res) {
 });
 
 // 2. POST Route to process the form data and add the student
-app.post("/admin/create", function(req, res) {
+app.post("/admin/create",isAdmin,function(req, res) {
     const students = readDatabase(); // पुराना डेटा लाएं
     const { name, course, descr } = req.body;
 

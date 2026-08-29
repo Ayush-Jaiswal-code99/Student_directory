@@ -34,5 +34,11 @@
     "name": "Abhi",
     "course": "MEE",
     "descr": "he hi very nice guy."
+  },
+  {
+    "id": 7,
+    "name": "Ayush",
+    "course": "jaiswa",
+    "descr": "No description provided yet for this profile index."
   }
 ]

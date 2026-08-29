@@ -1,44 +1,44 @@
 [
   {
-    "id": 1,
+    "rollNumber": "CSE25056",
     "name": "Ayush Jaiswal",
     "course": "CSE",
-    "descr": "I am topper of the CSE Brach till 1st year now I am Ex topper of the CSE Branch."
+    "descr": "I am the boss."
   },
   {
-    "id": 2,
+    "rollNumber": "CSE25112",
     "name": "Priyam Mishra",
     "course": "CSE",
-    "descr": "He is very smart boy in whole CSE Branch and he is my Best Friend."
+    "descr": "He is the brand and also the bob winner 2026 at csjmu."
   },
   {
-    "id": 3,
-    "name": "Aashish Kumar",
+    "rollNumber": "ECE25055",
+    "name": "Shashank Jaiswal",
+    "course": "ECE",
+    "descr": "He is very good editor."
+  },
+  {
+    "rollNumber": "CSE25052",
+    "name": "Ashish Kumar",
     "course": "CSE",
-    "descr": "He is also a nice guy and also my Best Friend.And his used by girls of my class."
+    "descr": "He is also the winner of bob 2026."
   },
   {
-    "id": 4,
+    "rollNumber": "MEE25555",
+    "name": "Abhishek kumar",
+    "course": "MEE",
+    "descr": "He is very interesting guy."
+  },
+  {
+    "rollNumber": "MEE25662",
+    "name": "Shivam Raj",
+    "course": "MEE",
+    "descr": "He is very chill person whenever I met."
+  },
+  {
+    "rollNumber": "CSE25132",
     "name": "Sandeep Kumar",
     "course": "CSE",
-    "descr": "He is the Google Gemini Ambassdor 2026 , GFG Mantri 2026 and also my Best Friend."
-  },
-  {
-    "id": 5,
-    "name": "Ayush Srivastav",
-    "course": "CSE",
-    "descr": "He is very Handsom and loving boy in our friend circle and also my Best Friend."
-  },
-  {
-    "id": 6,
-    "name": "Abhi",
-    "course": "MEE",
-    "descr": "he hi very nice guy."
-  },
-  {
-    "id": 7,
-    "name": "Ayush",
-    "course": "jaiswa",
-    "descr": "No description provided yet for this profile index."
+    "descr": "No description provided yet."
   }
 ]

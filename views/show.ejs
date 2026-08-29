@@ -1,90 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Students Details</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <style>
-    .back-btn {
-        display: inline-block;
-        text-decoration: none;
-        color: #ffffff;
-        background: #1f2235;
-        border: 1px solid #313752;
-        padding: 12px 28px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-        margin-top: 20px;
-    }
-
-    .back-btn:hover {
-        background: #d946ef;
-        border-color: #d946ef;
-        box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
-    }
-  </style>
-</head>
-<body class="bg-zinc-950 min-h-screen flex flex-col items-center justify-center p-6 font-sans text-zinc-100">
-    
-    <!-- Header Section -->
-    <div class="text-center mb-10">
-        <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            All Students Directory
-        </h1>
-        <p class="text-zinc-400 mt-2 text-sm">Managing current enrollment profiles</p>
-        <!-- Navigation Button -->
-       <a href="/" class="back-btn">← Return to Home Page</a>
-    </div>
-
-    <!-- Container for Separate Student Cards -->
-    <!-- It automatically switches from 1 column on mobile to 2 or 3 columns on larger screens -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #0b0c10; color: #f3f4f6; padding: 40px 20px; min-height: 100vh; }
+        .wrapper { max-width: 1000px; margin: 0 auto; }
         
-        <% filedata.forEach(function(student){ %>
-            <!-- Individual Student Card -->
-            <!-- <div class="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-indigo-500/50 hover:shadow-indigo-500/30"> -->
-            <a class="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-indigo-500/50 hover:shadow-indigo-500/30" href="/student/<%=student.id%>">
-                
-                <!-- Card Header (ID & Status Badge) -->
-                <div class="flex items-center justify-between mb-4 cursor-pointer border-b border-zinc-800 pb-3">
-                    <span class="text-xs font-mono font-bold tracking-wider text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md">
-                        ID: <%= student.id %>
-                    </span>
-                    <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                </div>
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .directory-title { font-size: 2.2rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .pink-glow { background: linear-gradient(to right, #d946ef, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* 🔍 SEARCH AND FILTER TAB CONTROLS */
+        .controls-box { background: #11131c; border: 1px solid #1e2230; padding: 20px; border-radius: 16px; margin-bottom: 35px; display: flex; flex-direction: column; gap: 15px; }
+        .search-bar { width: 100%; background: #161925; border: 1px solid #222638; border-radius: 10px; padding: 14px 20px; color: #ffffff; font-size: 1rem; outline: none; transition: 0.3s; }
+        .search-bar:focus { border-color: #d946ef; box-shadow: 0 0 15px rgba(217, 70, 239, 0.2); }
+        
+        .tabs-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+        .filter-tab { background: #1f2235; border: 1px solid #313752; color: #9ca3af; padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .filter-tab:hover, .filter-tab.active { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
 
-                <!-- Student Details Layout -->
-                <div class="space-y-3 cursor-pointer">
-                    <div>
-                        <label class="text-[11px] font-uppercase tracking-widest text-zinc-500 block uppercase font-semibold">Full Name</label>
-                        <span class="text-lg font-bold text-zinc-100"><%= student.name %></span>
-                    </div>
-                    <!-- Form for the Delete Action -->
-                    <form action="/student/<%= student.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to remove this record?');" style="margin-top: 15px;">
-                        <button type="submit" style="width: 100%; background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: background 0.2s;">
-                            🗑️ Delete Record
-                        </button>
-                    </form>
-                    <div>
-                        <label class="text-[11px] font-uppercase tracking-widest text-zinc-500 block uppercase font-semibold">Enrolled Course</label>
-                        <div class="inline-flex items-center gap-1.5 mt-1 text-sm font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            <%= student.course %>
+        .btn-nav-box { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; }
+        .nav-link { text-decoration: none; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; }
+
+        /* GRID CARDS */
+        .students-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .student-card { background: #11131c; border: 1px solid #1e2230; border-radius: 16px; padding: 22px; transition: 0.3s ease; display: flex; flex-direction: column; position: relative; }
+        .student-card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow:0 0 10px rgba(160, 32, 240, 0.6),0 0 20px rgba(160, 32, 240, 0.4),0 0 40px rgba(160, 32, 240, 0.25),0 0 80px rgba(160, 32, 240, 0.15),inset 0 0 15px rgba(160, 32, 240, 0.2);}
+        
+        .card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6; }
+        .student-meta h3 { font-size: 1.15rem; color: #ffffff; font-weight: 700; }
+        .student-meta p { font-size: 0.8rem; color: #6b7280; font-weight: 600; margin-top: 2px; }
+        
+        .badge { display: inline-block; align-self: flex-start; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 15px; text-transform: uppercase; }
+        
+        .profile-btn { text-align: center; text-decoration: none; color: #ffffff; background: #1f2235; border: 1px solid #313752; padding: 10px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; margin-top: auto; transition: 0.2s; }
+        .profile-btn:hover { background: #d946ef; border-color: #d946ef; }
+
+        .no-results { text-align: center; font-size: 1.1rem; color: #6b7280; width: 100%; grid-column: 1 / -1; padding: 40px 0; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="header-section">
+            <h1 class="directory-title">All Students <span class="pink-glow">Directory</span></h1>
+        </div>
+
+        <div class="btn-nav-box">
+            <a href="/" class="nav-link" style="background: #1f2235; border: 1px solid #313752;">← Home</a>
+            <% if (isLoggedIn) { %>
+                <a href="/admin" class="nav-link" style="background: #10b981;">+ Add Student</a>
+                <a href="/logout" class="nav-link" style="background: #ef4444;">🔒 Logout Admin</a>
+            <% } else { %>
+                <a href="/login" class="nav-link" style="background: #3b82f6;">🔑 Admin Login</a>
+            <% } %>
+        </div>
+
+        <!-- 🔍 SEARCH BOX AND COURSE CAP CAPSULES -->
+        <div class="controls-box">
+            <input type="text" id="searchInput" class="search-bar" placeholder="Search by name, ID or course keyword...">
+            
+            <div class="tabs-container">
+                <button class="filter-tab active" onclick="filterCourse('ALL')">All Batches</button>
+                <button class="filter-tab" onclick="filterCourse('CSE')">CSE</button>
+                <button class="filter-tab" onclick="filterCourse('ECE')">ECE</button>
+                <button class="filter-tab" onclick="filterCourse('ME')">Mechanical</button>
+            </div>
+        </div>
+
+        <!-- LIST CONTAINER -->
+        <div class="students-grid" id="studentsGrid">
+            <% if(filedata.length === 0) { %>
+                <div class="no-results" style="display: block;">No student data present in current data array module.</div>
+            <% } %>
+
+            <% filedata.forEach(function(student) { %>
+                <div class="student-card" data-name="<%= student.name.toLowerCase() %>" data-id="#<%= student.rollNumber %>" data-course="<%= student.course.toUpperCase() %>">
+                    <div class="card-header">
+                        <img class="avatar" src="/images/<%= student.rollNumber %>.jpg" onerror="this.src='https://unsplash.com'">
+                        <div class="student-meta">
+                            <h3><%= student.name %></h3>
+                            <p>UID: #<%= student.rollNumber %></p>
                         </div>
                     </div>
+                    
+                    <span class="badge"><%= student.course %></span>
+                    
+                    <a href="/student/<%= student.rollNumber %>" class="profile-btn">View Full Data Matrix</a>
                 </div>
-
-                <!-- Subtle Decorative Background Glow -->
-                <div class="absolute -right-10 -bottom-10 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl pointer-events-none"></div>
-            </a> 
-        <% }); %>
-        
+            <% }); %>
+            
+            <div class="no-results" id="noMatchMsg">No records found matching search queries.</div>
+        </div>
     </div>
-   
 
+    <!-- FRONTEND FLAWLESS REALTIME FILTER SCRIPT -->
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.student-card');
+        const noMatchMsg = document.getElementById('noMatchMsg');
+        let currentCourseFilter = 'ALL';
+
+        searchInput.addEventListener('input', runFilters);
+
+        function filterCourse(courseName) {
+            // Update Active tab look
+            document.querySelectorAll('.filter-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            currentCourseFilter = courseName;
+            runFilters();
+        }
+
+        function runFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const id = card.getAttribute('data-id');
+                const course = card.getAttribute('data-course');
+
+                const matchesSearch = name.includes(query) || id.includes(query) || course.toLowerCase().includes(query);
+                const matchesTab = (currentCourseFilter === 'ALL') || (course === currentCourseFilter);
+
+                if (matchesSearch && matchesTab) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noMatchMsg.style.display = (visibleCount === 0 && cards.length > 0) ? 'block' : 'none';
+        }
+    </script>
 </body>
-
 </html>

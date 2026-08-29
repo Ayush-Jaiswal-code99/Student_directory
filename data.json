@@ -1,4 +1,4 @@
-module.exports = [
+[
   {
     "id": 1,
     "name": "Ayush Jaiswal",
@@ -31,8 +31,8 @@ module.exports = [
   },
   {
     "id": 6,
-    "name": "Abhishek kumar",
+    "name": "Abhi",
     "course": "MEE",
-    "descr": "He is very funny guy."
+    "descr": "he hi very nice guy."
   }
-];
+]
